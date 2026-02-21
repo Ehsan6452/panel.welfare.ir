@@ -1,5 +1,4 @@
-// Routes/SuperAdmin/SuperAdminRoutes.js
-// import React from "react";
+import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import ProtectedRoute from '../../Components/ProtectedRoute/ProtectedRoute';
 import { ROLES } from "../../Utilities/Roles";
@@ -11,13 +10,11 @@ function SuperAdminRoutes() {
 
     return (
         <Routes>
-
             <Route index element={
                 <ProtectedRoute allowedRoles={[ROLES.SUPERADMIN]}>
-                    <Navigate to='super-admin/dashboard' replace />
+                    <Navigate to='dashboard' replace />
                 </ProtectedRoute>
             }/>
-
 
             {allRoutes.map(route => (
                 <Route
@@ -30,7 +27,6 @@ function SuperAdminRoutes() {
                     }
                 />
             ))}
-
 
             <Route path="*" element={
                 <ProtectedRoute allowedRoles={[ROLES.SUPERADMIN]}>

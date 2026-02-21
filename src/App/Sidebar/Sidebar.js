@@ -1,5 +1,5 @@
 // Sidebar.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   RxDashboard,
   RxBarChart,
@@ -25,7 +25,12 @@ import { getSidebarMenuItems as getSellerMenu } from '../../Routes/Seller/Seller
 function Sidebar({ isCollapsed, isMobile, onClose }) {
     const [isHovered, setIsHovered] = useState(false);
     const [openSubmenus, setOpenSubmenus] = useState({});
-    const role = useAuth();
+    const { user } = useAuth(); // دریافت user از context
+
+    // دیباگ: چاپ اطلاعات کاربر
+    useEffect(() => {
+        console.log('Sidebar - User:', user);
+    }, [user]);
 
     // ساختار منوها با استفاده از configها
     const menuItems = {
@@ -34,8 +39,23 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
         [ROLES.SELLER.name]: getSellerMenu()
     };
 
-    const currentMenu = menuItems[role.name] || [];
+    // دیباگ: چاپ منوهای هر نقش
+    useEffect(() => {
+        console.log('Sidebar - SuperAdmin Menu:', getSuperAdminMenu());
+        console.log('Sidebar - StateAdmin Menu:', getStateAdminMenu());
+        console.log('Sidebar - Seller Menu:', getSellerMenu());
+        console.log('Sidebar - All Menu Items:', menuItems);
+    }, []);
+
+    // بررسی وجود user و نقش آن
+    const currentMenu = user && menuItems[user.role] ? menuItems[user.role] : [];
     
+    // دیباگ: چاپ منوی جاری
+    useEffect(() => {
+        console.log('Sidebar - Current User Role:', user?.role);
+        console.log('Sidebar - Current Menu:', currentMenu);
+    }, [user, currentMenu]);
+
     // در موبایل همیشه expanded است
     const isExpanded = isMobile ? true : (!isCollapsed || isHovered);
     
@@ -66,6 +86,11 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
     const isSubmenuOpen = (menuLabel) => {
         return openSubmenus[menuLabel] || false;
     };
+
+    // اگر user وجود نداشت، چیزی نمایش نده
+    if (!user) {
+        return null;
+    }
 
     return (
         <div 
@@ -107,8 +132,8 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
                 ${isExpanded ? 'gap-1 md:gap-2' : 'gap-1'}
             `}>
                 <img 
-                    src="https://i.pravatar.cc/100" 
-                    alt="user profile" 
+                    src={`https://i.pravatar.cc/100?u=${user.id}`} 
+                    alt={user.name} 
                     className={`
                         border-2 border-gray-200 transition-all duration-300
                         ${isExpanded ? 'w-16 h-16 md:w-20 md:h-20 rounded-xl' : 'w-10 h-10 rounded-full'}
@@ -118,10 +143,10 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
                 {isExpanded && (
                     <>
                         <span className={`${userNameSize} font-bold text-center`}>
-                            نام کاربری
+                            {user.name}
                         </span>
                         <span className={`${userBadgeSize} text-center text-gray-500`}>
-                            {role.badge}
+                            {user.badge}
                         </span>
                     </>
                 )}

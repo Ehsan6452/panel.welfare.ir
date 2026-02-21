@@ -1,4 +1,3 @@
-// Routes/Seller/sellerRoutesConfig.js
 import React from "react";
 import { 
   RxDashboard,
@@ -7,10 +6,10 @@ import {
   RxGear,
   RxStack 
 } from "react-icons/rx";
-import { MdOutlinePayment } from "react-icons/md";
 import { AiOutlineShop } from "react-icons/ai";
+import { MdOutlinePayment } from "react-icons/md";
 
-// import main pages
+// import pages
 import Dashboard from '../../Pages/Seller/Dashboard/Dashboard';
 import Products from '../../Pages/Seller/Products/Products';
 import Orders from '../../Pages/Seller/Orders/Orders';
@@ -72,12 +71,7 @@ export const sellerRoutesConfig = [
     }
 ];
 
-
-export const getFullPath = (basePath, subPath) => {
-    return `/seller/${basePath}${subPath ? `/${subPath}` : ''}`;
-};
-
-
+// دریافت آیتم‌های منوی سایدبار
 export const getSidebarMenuItems = () => {
     return sellerRoutesConfig.map(route => ({
         path: `/seller/${route.path}`,
@@ -90,18 +84,16 @@ export const getSidebarMenuItems = () => {
     }));
 };
 
-
+// دریافت تمام مسیرها برای استفاده در Routes
 export const getAllRoutes = () => {
     const routes = [];
     
     sellerRoutesConfig.forEach(route => {
-
         routes.push({
             path: route.path,
             element: route.element
         });
         
-
         route.subRoutes.forEach(sub => {
             routes.push({
                 path: `${route.path}/${sub.path}`,

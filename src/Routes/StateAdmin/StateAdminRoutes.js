@@ -1,4 +1,3 @@
-// Routes/StateAdmin/StateAdminRoutes.js
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import ProtectedRoute from '../../Components/ProtectedRoute/ProtectedRoute';
@@ -11,13 +10,11 @@ function StateAdminRoutes() {
 
     return (
         <Routes>
-
             <Route index element={
                 <ProtectedRoute allowedRoles={[ROLES.STATEADMIN]}>
-                    <Navigate to='state-admin/dashboard' replace />
+                    <Navigate to='dashboard' replace />
                 </ProtectedRoute>
             }/>
-
 
             {allRoutes.map(route => (
                 <Route

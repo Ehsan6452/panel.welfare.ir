@@ -6,11 +6,18 @@ import {
   IoExpandOutline, 
   IoContractOutline, 
   IoNotificationsOutline,
-  IoClose
+  IoClose,
+  IoLogOutOutline,
+  IoChevronDown
 } from "react-icons/io5";
+import { useAuth } from '../../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen }) {
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
 
     // تابع بررسی پشتیبانی مرورگر از Fullscreen API
     const isFullscreenEnabled = () => {
@@ -67,6 +74,24 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
             requestFullscreen(document.documentElement);
         }
     };
+
+    // تابع logout
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    };
+
+    // بستن منوی پروفایل وقتی کاربر کلیک خارج می‌کند
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (!event.target.closest('.profile-menu-container')) {
+                setIsProfileMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, []);
 
     // گوش دادن به تغییرات وضعیت تمام صفحه
     useEffect(() => {
@@ -155,24 +180,43 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
                     )}
                 </button>
 
-                {/* پروفایل کاربر */}
-                <button className="flex items-center gap-1 md:gap-2 p-1 hover:bg-gray-100 rounded-lg transition-colors group relative">
-                    <img
-                        src="https://i.pravatar.cc/50"
-                        alt="user profile"
-                        className={`
-                            rounded-full border-2 border-gray-200 group-hover:border-blue-500 transition-colors
-                            ${isMobile ? 'w-7 h-7' : 'w-8 h-8 md:w-9 md:h-9'}
-                        `}
-                    />
-                    
-                    {/* Tooltip فقط برای دسکتاپ */}
-                    {!isMobile && (
-                        <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                            پروفایل
-                        </span>
+                {/* منوی پروفایل کاربر با دکمه logout */}
+                <div className="relative profile-menu-container">
+                    <button 
+                        onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                        className="flex items-center gap-1 md:gap-2 p-1 hover:bg-gray-100 rounded-lg transition-colors group"
+                    >
+                        <img
+                            src={`https://i.pravatar.cc/50?u=${user?.id || 1}`}
+                            alt={user?.name || 'user profile'}
+                            className={`
+                                rounded-full border-2 border-gray-200 group-hover:border-blue-500 transition-colors
+                                ${isMobile ? 'w-7 h-7' : 'w-8 h-8 md:w-9 md:h-9'}
+                            `}
+                        />
+                        {!isMobile && (
+                            <IoChevronDown className={`text-gray-600 transition-transform ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                        )}
+                    </button>
+
+                    {/* منوی کشویی پروفایل */}
+                    {isProfileMenuOpen && (
+                        <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50 border border-gray-200">
+                            <div className="px-4 py-2 border-b border-gray-100">
+                                <p className="text-sm font-semibold text-gray-800">{user?.name}</p>
+                                <p className="text-xs text-gray-500">{user?.badge}</p>
+                            </div>
+                            
+                            <button
+                                onClick={handleLogout}
+                                className="w-full text-right px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
+                            >
+                                <IoLogOutOutline className="text-xl" />
+                                <span>خروج از حساب</span>
+                            </button>
+                        </div>
                     )}
-                </button>
+                </div>
             </div>
         </div>
     );

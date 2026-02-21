@@ -1,5 +1,4 @@
-// Routes/Seller/SellerRoutes.js
-// import React from "react";
+import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import ProtectedRoute from '../../Components/ProtectedRoute/ProtectedRoute';
 import { ROLES } from "../../Utilities/Roles";
@@ -11,10 +10,9 @@ function SellerRoutes() {
 
     return (
         <Routes>
-
             <Route index element={
                 <ProtectedRoute allowedRoles={[ROLES.SELLER]}>
-                    <Navigate to='seller/dashboard' replace />
+                    <Navigate to='dashboard' replace />
                 </ProtectedRoute>
             }/>
 

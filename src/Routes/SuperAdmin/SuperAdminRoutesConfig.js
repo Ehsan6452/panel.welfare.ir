@@ -3,7 +3,7 @@ import {
   RxDashboard,
   RxBarChart,
   RxQuestionMarkCircled,
-  RxGear 
+  RxGear
 } from "react-icons/rx";
 import { MdOutlineHub, MdOutlinePayment } from "react-icons/md";
 
@@ -64,12 +64,7 @@ export const superAdminRoutesConfig = [
     }
 ];
 
-
-export const getFullPath = (basePath, subPath) => {
-    return `/super-admin/${basePath}${subPath ? `/${subPath}` : ''}`;
-};
-
-
+// دریافت آیتم‌های منوی سایدبار
 export const getSidebarMenuItems = () => {
     return superAdminRoutesConfig.map(route => ({
         path: `/super-admin/${route.path}`,
@@ -82,12 +77,11 @@ export const getSidebarMenuItems = () => {
     }));
 };
 
-
+// دریافت تمام مسیرها برای استفاده در Routes
 export const getAllRoutes = () => {
     const routes = [];
     
     superAdminRoutesConfig.forEach(route => {
-
         routes.push({
             path: route.path,
             element: route.element

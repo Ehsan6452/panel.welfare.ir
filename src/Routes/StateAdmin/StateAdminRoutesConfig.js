@@ -1,16 +1,15 @@
-// Routes/StateAdmin/stateAdminRoutesConfig.js
 import React from "react";
 import { 
   RxDashboard,
   RxBarChart,
   RxQuestionMarkCircled,
   RxGear,
-  RxStack 
+  RxStack
 } from "react-icons/rx";
 import { MdOutlinePayment } from "react-icons/md";
 import { AiOutlineShop } from "react-icons/ai";
 
-// import main pages
+// import pages
 import Dashboard from '../../Pages/StateAdmin/Dashboard/Dashboard';
 import Shops from '../../Pages/StateAdmin/Shops/Shop';
 import Orders from '../../Pages/StateAdmin/Orders/Orders';
@@ -73,12 +72,7 @@ export const stateAdminRoutesConfig = [
     }
 ];
 
-
-export const getFullPath = (basePath, subPath) => {
-    return `/state-admin/${basePath}${subPath ? `/${subPath}` : ''}`;
-};
-
-
+// دریافت آیتم‌های منوی سایدبار
 export const getSidebarMenuItems = () => {
     return stateAdminRoutesConfig.map(route => ({
         path: `/state-admin/${route.path}`,
@@ -91,17 +85,16 @@ export const getSidebarMenuItems = () => {
     }));
 };
 
+// دریافت تمام مسیرها برای استفاده در Routes
 export const getAllRoutes = () => {
     const routes = [];
     
     stateAdminRoutesConfig.forEach(route => {
-
         routes.push({
             path: route.path,
             element: route.element
         });
         
-
         route.subRoutes.forEach(sub => {
             routes.push({
                 path: `${route.path}/${sub.path}`,

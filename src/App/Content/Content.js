@@ -1,32 +1,51 @@
 import React from "react";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { ROLES } from '../../Utilities/Roles';
-// imports routs
+import ProtectedRoute from '../../Components/ProtectedRoute/ProtectedRoute';
 import SuperAdminRoutes from '../../Routes/SuperAdmin/SuperAdminRoutes';
 import StateAdminRoutes from '../../Routes/StateAdmin/StateAdminRoutes';
-import SellerRoutes from '../../Routes/Seller/SellerRoutes'
+import SellerRoutes from '../../Routes/Seller/SellerRoutes';
 
 function Content() {
-    const role = useAuth();
+    const { user } = useAuth();
+
+    // تابع کمکی برای تبدیل نقش به مسیر
+    const getDefaultRoute = () => {
+        switch(user?.role) {
+            case ROLES.SUPERADMIN.name:
+                return '/super-admin/dashboard';
+            case ROLES.STATEADMIN.name:
+                return '/state-admin/dashboard';
+            case ROLES.SELLER.name:
+                return '/seller/dashboard';
+            default:
+                return '/';
+        }
+    };
+
     return (
         <Routes>
             <Route path="/super-admin/*" element={
-                role.name === ROLES.SUPERADMIN.name ? <SuperAdminRoutes /> : null
+                <ProtectedRoute allowedRoles={[ROLES.SUPERADMIN]}>
+                    <SuperAdminRoutes />
+                </ProtectedRoute>
             } />
 
             <Route path="/state-admin/*" element={
-                role.name === ROLES.STATEADMIN.name ? <StateAdminRoutes /> : null
+                <ProtectedRoute allowedRoles={[ROLES.STATEADMIN]}>
+                    <StateAdminRoutes />
+                </ProtectedRoute>
             } />
 
             <Route path="/seller/*" element={
-                role.name === ROLES.SELLER.name ? <SellerRoutes /> : null
+                <ProtectedRoute allowedRoles={[ROLES.SELLER]}>
+                    <SellerRoutes />
+                </ProtectedRoute>
             } />
 
             <Route path="/" element={
-                role.name === ROLES.SUPERADMIN.name ? <SuperAdminRoutes /> :
-                role.name === ROLES.STATEADMIN.name ? <StateAdminRoutes /> :
-                role.name === ROLES.SELLER.name ? <SellerRoutes /> : null
+                <Navigate to={getDefaultRoute()} replace />
             } />
         </Routes>
     );

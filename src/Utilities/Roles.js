@@ -1,17 +1,22 @@
 export const ROLES = {
     SUPERADMIN: {
-        badge:'مدیر کل فروشگاه',
-        name:'SuperAdmin',
+        name: 'SUPERADMIN',
+        label: 'مدیر کل',
+        badge: 'مدیر سیستم',
+        dashboard: '/super-admin/dashboard'
     },
-    STATEADMIN:{
-        badge:'مدیر استان',
-        name:'StateAdmin',
+    STATEADMIN: {
+        name: 'STATEADMIN',
+        label: 'مدیر مرکز',
+        badge: 'مدیر مرکز',
+        dashboard: '/state-admin/dashboard'
     },
-    SELLER:{
-        badge:'مدیر فروشگاه',
-        name:'Seller',
+    SELLER: {
+        name: 'SELLER',
+        label: 'فروشنده',
+        badge: 'فروشنده',
+        dashboard: '/seller/dashboard'
     }
-
 };
 
 
