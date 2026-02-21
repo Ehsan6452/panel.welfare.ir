@@ -1,6 +1,32 @@
 :root {
-    --color-primary : #568DEF;
-    --color-background-primary : #ffffff;
-    --color-background-secendry : #F1F2F7;
-    --color-text-dark : #3F4254;
+    /* رنگ‌های اصلی */
+    --color-primary: 37 99 235;      /* آبی تیره برای متن فعال */
+    --color-primary-light: 59 130 246; /* آبی روشن‌تر برای هاور */
+    --color-primary-lighter: 219 234 254; /* آبی خیلی روشن برای پس‌زمینه فعال */
+    --color-primary-dark: 29 78 216;   /* آبی تیره‌تر */
+    
+    /* رنگ‌های پس‌زمینه */
+    --color-background-primary: 255 255 255; /* سفید */
+    --color-background-secondary: 249 250 251; /* خاکستری خیلی روشن */
+    --color-background-tertiary: 243 244 246; /* خاکستری روشن */
+    --color-background-hover: 237 242 247; /* هاور */
+    --color-background-active: 239 246 255; /* آبی خیلی روشن برای آیتم فعال */
+    
+    /* رنگ‌های متن */
+    --color-text-primary: 17 24 39;    /* تقریبا سیاه */
+    --color-text-secondary: 75 85 99;  /* خاکستری تیره */
+    --color-text-muted: 156 163 175;   /* خاکستری */
+    --color-text-disabled: 209 213 219; /* خاکستری روشن */
+    --color-text-active: 37 99 235;    /* آبی برای متن فعال */
+    --color-text-white: 255 255 255;   /* سفید */
+    
+    /* رنگ‌های وضعیت */
+    --color-success: 5 150 105;
+    --color-warning: 245 158 11;
+    --color-danger: 220 38 38;
+    --color-info: 59 130 246;
+    
+    /* رنگ‌های حاشیه */
+    --color-border: 229 231 235;
+    --color-border-dark: 209 213 219;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from '../Context/AuthContext';
+import { ThemeProvider } from '../Context/ThemeContext'; // اضافه کردن
 import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
 import Content from './Content/Content';
@@ -38,7 +39,6 @@ function AppContent() {
     setIsMobileSidebarOpen(false);
   };
 
-  // اگر کاربر لاگین نکرده، فقط صفحه لاگین نمایش داده شود
   if (!user) {
     return (
       <Routes>
@@ -48,10 +48,9 @@ function AppContent() {
     );
   }
 
-  // کاربر لاگین کرده، داشبورد نمایش داده شود
   return (
-    <div className="flex min-h-screen bg-gray-50 relative">
-      {/* سایدبار برای موبایل - به صورت اوورلی */}
+    <div className="flex min-h-screen bg-background-primary text-primary">
+      {/* سایدبار برای موبایل */}
       {isMobile && (
         <>
           {isMobileSidebarOpen && (
@@ -63,7 +62,7 @@ function AppContent() {
           
           <aside 
             className={`
-              fixed top-0 right-0 h-full w-64 bg-white z-50 transform transition-transform duration-300 ease-in-out
+              fixed top-0 right-0 h-full w-64 bg-background-secondary z-50 transform transition-transform duration-300 ease-in-out
               ${isMobileSidebarOpen ? 'translate-x-0' : 'translate-x-full'}
             `}
           >
@@ -76,9 +75,9 @@ function AppContent() {
         </>
       )}
 
-      {/* سایدبار برای دسکتاپ و تبلت */}
+      {/* سایدبار برای دسکتاپ */}
       {!isMobile && (
-        <aside className="sticky top-0 h-screen bg-white text-gray-800 hidden md:block">
+        <aside className="sticky top-0 h-screen bg-background-secondary text-primary hidden md:block border-l border-default">
           <Sidebar 
             isCollapsed={isSidebarCollapsed}
             isMobile={false}
@@ -88,7 +87,7 @@ function AppContent() {
 
       {/* محتوای اصلی */}
       <div className="flex-1 flex flex-col w-full">
-        <header className="sticky top-0 z-30 shadow-md border-b border-gray-200">
+        <header className="sticky top-0 z-30 shadow-md border-b border-default bg-background-primary">
           <Header 
             onMenuClick={toggleSidebar} 
             isSidebarCollapsed={isSidebarCollapsed}
@@ -108,9 +107,11 @@ function AppContent() {
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

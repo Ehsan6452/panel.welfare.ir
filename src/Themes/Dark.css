@@ -1,0 +1,32 @@
+.dark {
+    /* رنگ‌های اصلی */
+    --color-primary: 96 165 250;      /* آبی روشن */
+    --color-primary-light: 147 197 253; /* آبی روشن‌تر */
+    --color-primary-lighter: 30 58 138; /* آبی تیره برای پس‌زمینه فعال */
+    --color-primary-dark: 59 130 246;   /* آبی */
+    
+    /* رنگ‌های پس‌زمینه */
+    --color-background-primary: 17 24 39;    /* تقریبا سیاه */
+    --color-background-secondary: 31 41 55;  /* خاکستری تیره */
+    --color-background-tertiary: 55 65 81;   /* خاکستری */
+    --color-background-hover: 55 65 81;      /* هاور */
+    --color-background-active: 30 58 138;    /* آبی تیره برای آیتم فعال */
+    
+    /* رنگ‌های متن */
+    --color-text-primary: 243 244 246;    /* تقریبا سفید */
+    --color-text-secondary: 209 213 219;  /* خاکستری روشن */
+    --color-text-muted: 156 163 175;      /* خاکستری */
+    --color-text-disabled: 107 114 128;   /* خاکستری تیره */
+    --color-text-active: 147 197 253;     /* آبی روشن برای متن فعال */
+    --color-text-white: 255 255 255;      /* سفید */
+    
+    /* رنگ‌های وضعیت */
+    --color-success: 74 222 128;
+    --color-warning: 250 204 21;
+    --color-danger: 248 113 113;
+    --color-info: 96 165 250;
+    
+    /* رنگ‌های حاشیه */
+    --color-border: 55 65 81;
+    --color-border-dark: 75 85 99;
+}

@@ -12,14 +12,16 @@ import {
 } from "react-icons/io5";
 import { useAuth } from '../../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { IoSunnyOutline, IoMoonOutline } from 'react-icons/io5';
+import { useTheme } from '../../Context/ThemeContext';
 
 function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen }) {
+    const { theme, toggleTheme } = useTheme();
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 
-    // تابع بررسی پشتیبانی مرورگر از Fullscreen API
     const isFullscreenEnabled = () => {
         return document.fullscreenEnabled || 
                document.webkitFullscreenEnabled || 
@@ -27,7 +29,6 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
                document.msFullscreenEnabled;
     };
 
-    // تابع دریافت المان در حالت تمام صفحه
     const getFullscreenElement = () => {
         return document.fullscreenElement ||
                document.webkitFullscreenElement ||
@@ -35,7 +36,6 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
                document.msFullscreenElement;
     };
 
-    // تابع درخواست تمام صفحه
     const requestFullscreen = (element) => {
         if (element.requestFullscreen) {
             element.requestFullscreen();
@@ -48,7 +48,6 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
         }
     };
 
-    // تابع خروج از تمام صفحه
     const exitFullscreen = () => {
         if (document.exitFullscreen) {
             document.exitFullscreen();
@@ -61,7 +60,6 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
         }
     };
 
-    // تابع toggle تمام صفحه
     const toggleFullscreen = () => {
         if (!isFullscreenEnabled()) {
             alert("مرورگر شما از حالت تمام صفحه پشتیبانی نمی‌کند");
@@ -75,13 +73,11 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
         }
     };
 
-    // تابع logout
     const handleLogout = () => {
         logout();
         navigate('/login');
     };
 
-    // بستن منوی پروفایل وقتی کاربر کلیک خارج می‌کند
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.target.closest('.profile-menu-container')) {
@@ -93,7 +89,6 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
         return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
-    // گوش دادن به تغییرات وضعیت تمام صفحه
     useEffect(() => {
         const handleFullscreenChange = () => {
             setIsFullscreen(!!getFullscreenElement());
@@ -112,24 +107,22 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
         };
     }, []);
 
-    // سایز آیکون‌ها بر اساس دستگاه
     const iconSize = isMobile ? "text-3xl" : "text-4xl";
 
     return (
-        <div className="px-3 md:px-4 lg:px-5 py-2 md:py-3 flex items-center justify-between">
+        <div className="px-3 md:px-4 lg:px-5 py-2 md:py-3 flex items-center justify-between bg-background-primary border-b border-default">
             <div className="flex items-center gap-2 md:gap-4 flex-1">
                 <button 
                     onClick={onMenuClick}
-                    className="p-1.5 md:p-2 rounded-lg hover:bg-gray-100 transition-colors relative group"
+                    className="p-1.5 md:p-2 rounded-lg hover:bg-background-hover transition-colors relative group"
                     title={isMobile ? "منو" : (isSidebarCollapsed ? "باز کردن سایدبار" : "بستن سایدبار")}
                 >
                     {isMobile && isMobileSidebarOpen ? (
-                        <IoClose className={`${iconSize} text-gray-700`} />
+                        <IoClose className={`${iconSize} text-primary`} />
                     ) : (
-                        <IoMenu className={`${iconSize} text-gray-700`} />
+                        <IoMenu className={`${iconSize} text-primary`} />
                     )}
                     
-                    {/* Tooltip فقط برای دسکتاپ */}
                     {!isMobile && (
                         <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                             {isSidebarCollapsed ? "باز کردن سایدبار" : "بستن سایدبار"}
@@ -137,29 +130,27 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
                     )}
                 </button>
 
-                {/* سرچ باکس - در موبایل کوچک‌تر می‌شود */}
                 <div className="relative max-w-xs md:max-w-md w-full">
-                    <IoSearch className={`absolute left-2 md:left-3 top-1/2 -translate-y-1/2 text-gray-400 ${isMobile ? 'text-xl' : 'text-2xl md:text-3xl'}`} />
+                    <IoSearch className={`absolute left-2 md:left-3 top-1/2 -translate-y-1/2 text-muted ${isMobile ? 'text-xl' : 'text-2xl md:text-3xl'}`} />
                     <input
                         type="text"
                         placeholder={isMobile ? "جستجو..." : "جستجو..."}
-                        className="w-full pl-8 md:pl-10 pr-2 md:pr-4 py-1.5 md:py-2 text-sm md:text-base border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                        className="w-full pl-8 md:pl-10 pr-2 md:pr-4 py-1.5 md:py-2 text-sm md:text-base bg-background-primary border border-default rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-primary placeholder-muted"
                     />
                 </div>
             </div>
 
             <div className="flex items-center gap-1 md:gap-2">
-                {/* دکمه فول اسکرین - مخفی در موبایل */}
                 {!isMobile && (
                     <button 
                         onClick={toggleFullscreen}
-                        className="p-1.5 md:p-2 hover:bg-gray-100 rounded-lg transition-colors relative group"
+                        className="p-1.5 md:p-2 hover:bg-background-hover rounded-lg transition-colors relative group"
                         title={isFullscreen ? "خروج از تمام صفحه" : "تمام صفحه"}
                     >
                         {isFullscreen ? (
-                            <IoContractOutline className={iconSize} />
+                            <IoContractOutline className={`${iconSize} text-primary`} />
                         ) : (
-                            <IoExpandOutline className={iconSize} />
+                            <IoExpandOutline className={`${iconSize} text-primary`} />
                         )}
                         <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                             {isFullscreen ? "خروج از تمام صفحه" : "تمام صفحه"}
@@ -167,12 +158,10 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
                     </button>
                 )}
 
-                {/* دکمه نوتیفیکیشن */}
-                <button className="p-1.5 md:p-2 hover:bg-gray-100 rounded-lg transition-colors relative group">
-                    <IoNotificationsOutline className={iconSize} />
-                    <span className="absolute top-1 right-1 w-1.5 md:w-2 h-1.5 md:h-2 bg-red-500 rounded-full"></span>
+                <button className="p-1.5 md:p-2 hover:bg-background-hover rounded-lg transition-colors relative group">
+                    <IoNotificationsOutline className={`${iconSize} text-primary`} />
+                    <span className="absolute top-1 right-1 w-1.5 md:w-2 h-1.5 md:h-2 bg-danger rounded-full"></span>
                     
-                    {/* Tooltip فقط برای دسکتاپ */}
                     {!isMobile && (
                         <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                             نوتیفیکیشن‌ها
@@ -180,36 +169,51 @@ function Header({ onMenuClick, isSidebarCollapsed, isMobile, isMobileSidebarOpen
                     )}
                 </button>
 
-                {/* منوی پروفایل کاربر با دکمه logout */}
+                <button 
+                    onClick={toggleTheme}
+                    className="p-1.5 md:p-2 hover:bg-background-hover rounded-lg transition-colors relative group"
+                    title={theme === 'light' ? 'تم تاریک' : 'تم روشن'}
+                >
+                    {theme === 'light' ? (
+                        <IoMoonOutline className={`${iconSize} text-primary`} />
+                    ) : (
+                        <IoSunnyOutline className={`${iconSize} text-primary`} />
+                    )}
+                    {!isMobile && (
+                        <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                            {theme === 'light' ? 'تم تاریک' : 'تم روشن'}
+                        </span>
+                    )}
+                </button>
+
                 <div className="relative profile-menu-container">
                     <button 
                         onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                        className="flex items-center gap-1 md:gap-2 p-1 hover:bg-gray-100 rounded-lg transition-colors group"
+                        className="flex items-center gap-1 md:gap-2 p-1 hover:bg-background-hover rounded-lg transition-colors group"
                     >
                         <img
                             src={`https://i.pravatar.cc/50?u=${user?.id || 1}`}
                             alt={user?.name || 'user profile'}
                             className={`
-                                rounded-full border-2 border-gray-200 group-hover:border-blue-500 transition-colors
+                                rounded-full border-2 border-default group-hover:border-primary transition-colors
                                 ${isMobile ? 'w-7 h-7' : 'w-8 h-8 md:w-9 md:h-9'}
                             `}
                         />
                         {!isMobile && (
-                            <IoChevronDown className={`text-gray-600 transition-transform ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                            <IoChevronDown className={`text-secondary transition-transform ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                         )}
                     </button>
 
-                    {/* منوی کشویی پروفایل */}
                     {isProfileMenuOpen && (
-                        <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50 border border-gray-200">
-                            <div className="px-4 py-2 border-b border-gray-100">
-                                <p className="text-sm font-semibold text-gray-800">{user?.name}</p>
-                                <p className="text-xs text-gray-500">{user?.badge}</p>
+                        <div className="absolute left-0 mt-2 w-48 bg-background-secondary rounded-lg shadow-lg py-1 z-50 border border-default">
+                            <div className="px-4 py-2 border-b border-default">
+                                <p className="text-sm font-semibold text-primary">{user?.name}</p>
+                                <p className="text-xs text-muted">{user?.badge}</p>
                             </div>
                             
                             <button
                                 onClick={handleLogout}
-                                className="w-full text-right px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
+                                className="w-full text-right px-4 py-2 text-sm text-danger hover:bg-background-hover flex items-center gap-2 transition-colors"
                             >
                                 <IoLogOutOutline className="text-xl" />
                                 <span>خروج از حساب</span>

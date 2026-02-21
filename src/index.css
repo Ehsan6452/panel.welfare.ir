@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ایمپورت فایل‌های تم */
+@import './Themes/Light.css';
+@import './Themes/Dark.css';
 
 @font-face {
   font-family: Vazir-Light;
@@ -11,28 +14,29 @@
 }
 @font-face {
   font-family: Vazir;
-  src: url(Font/Vazirmatn-Regular.woff2) format('woff2');
+  src: url(./Font/Vazirmatn-Regular.woff2) format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: Vazir-SemiBold;
-  src: url(Font/Vazirmatn-SemiBold.woff2) format('woff2');
+  src: url(./Font/Vazirmatn-SemiBold.woff2) format('woff2');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: Vazir-Bold;
-  src: url(Font/Vazirmatn-Bold.woff2) format('woff2');
+  src: url(./Font/Vazirmatn-Bold.woff2) format('woff2');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: Vazir-ExtraBold;
-  src: url(Font/Vazirmatn-ExtraBold.woff2) format('woff2');
+  src: url(./Font/Vazirmatn-ExtraBold.woff2) format('woff2');
   font-weight: bold;
   font-style: normal;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -40,24 +44,140 @@ body {
   font-family: 'Vazir';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(var(--color-background-primary));
+  color: rgb(var(--color-text-primary));
 }
-h1{
+
+h1, h2, h3, h4, h5, h6 {
   padding: 0;
   margin: 0;
+  color: rgb(var(--color-text-primary));
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-ul , li, a
-{
+
+ul, li, a {
   list-style: none;
   text-decoration: none;
 }
 
-.show
-{
-    border: 1px solid red;
+/* کلاس‌های کمکی برای رنگ‌ها */
+@layer components {
+  /* پس‌زمینه */
+  .bg-primary {
+    background-color: rgb(var(--color-primary));
+  }
+  .bg-primary-light {
+    background-color: rgb(var(--color-primary-light));
+  }
+  .bg-primary-lighter {
+    background-color: rgb(var(--color-primary-lighter));
+  }
+  .bg-primary-dark {
+    background-color: rgb(var(--color-primary-dark));
+  }
+  .bg-background-primary {
+    background-color: rgb(var(--color-background-primary));
+  }
+  .bg-background-secondary {
+    background-color: rgb(var(--color-background-secondary));
+  }
+  .bg-background-tertiary {
+    background-color: rgb(var(--color-background-tertiary));
+  }
+  .bg-background-hover {
+    background-color: rgb(var(--color-background-hover));
+  }
+  .bg-background-active {
+    background-color: rgb(var(--color-background-active));
+  }
+  
+  /* متن */
+  .text-primary {
+    color: rgb(var(--color-text-primary));
+  }
+  .text-secondary {
+    color: rgb(var(--color-text-secondary));
+  }
+  .text-muted {
+    color: rgb(var(--color-text-muted));
+  }
+  .text-active {
+    color: rgb(var(--color-text-active));
+  }
+  .text-white-custom {
+    color: rgb(var(--color-text-white));
+  }
+  
+  /* رنگ آیکون */
+  .icon-primary {
+    color: rgb(var(--color-text-primary));
+  }
+  .icon-secondary {
+    color: rgb(var(--color-text-secondary));
+  }
+  .icon-active {
+    color: rgb(var(--color-text-active));
+  }
+  .icon-white {
+    color: rgb(var(--color-text-white));
+  }
+  
+  /* حاشیه */
+  .border-default {
+    border-color: rgb(var(--color-border));
+  }
+  .border-primary {
+    border-color: rgb(var(--color-primary));
+  }
+  
+  /* وضعیت */
+  .text-success {
+    color: rgb(var(--color-success));
+  }
+  .text-warning {
+    color: rgb(var(--color-warning));
+  }
+  .text-danger {
+    color: rgb(var(--color-danger));
+  }
+  .bg-success {
+    background-color: rgb(var(--color-success));
+  }
+  .bg-warning {
+    background-color: rgb(var(--color-warning));
+  }
+  .bg-danger {
+    background-color: rgb(var(--color-danger));
+  }
+  
+  /* هاور */
+  .hover\:bg-background-hover:hover {
+    background-color: rgb(var(--color-background-hover));
+  }
+  .hover\:text-active:hover {
+    color: rgb(var(--color-text-active));
+  }
+  .hover\:icon-active:hover {
+    color: rgb(var(--color-text-active));
+  }
+  
+  /* حالت فعال */
+  .active\:bg-background-active:active {
+    background-color: rgb(var(--color-background-active));
+  }
+  
+  /* ریسپانسیو */
+  @media (min-width: 768px) {
+    .md\:hover\:bg-background-hover:hover {
+      background-color: rgb(var(--color-background-hover));
+    }
+  }
 }
 
-
+.show {
+  border: 1px solid red;
+}

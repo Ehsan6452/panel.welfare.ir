@@ -25,21 +25,18 @@ import { getSidebarMenuItems as getSellerMenu } from '../../Routes/Seller/Seller
 function Sidebar({ isCollapsed, isMobile, onClose }) {
     const [isHovered, setIsHovered] = useState(false);
     const [openSubmenus, setOpenSubmenus] = useState({});
-    const { user } = useAuth(); // دریافت user از context
+    const { user } = useAuth();
 
-    // دیباگ: چاپ اطلاعات کاربر
     useEffect(() => {
         console.log('Sidebar - User:', user);
     }, [user]);
 
-    // ساختار منوها با استفاده از configها
     const menuItems = {
         [ROLES.SUPERADMIN.name]: getSuperAdminMenu(),
         [ROLES.STATEADMIN.name]: getStateAdminMenu(),
         [ROLES.SELLER.name]: getSellerMenu()
     };
 
-    // دیباگ: چاپ منوهای هر نقش
     useEffect(() => {
         console.log('Sidebar - SuperAdmin Menu:', getSuperAdminMenu());
         console.log('Sidebar - StateAdmin Menu:', getStateAdminMenu());
@@ -47,22 +44,16 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
         console.log('Sidebar - All Menu Items:', menuItems);
     }, []);
 
-    // بررسی وجود user و نقش آن
     const currentMenu = user && menuItems[user.role] ? menuItems[user.role] : [];
     
-    // دیباگ: چاپ منوی جاری
     useEffect(() => {
         console.log('Sidebar - Current User Role:', user?.role);
         console.log('Sidebar - Current Menu:', currentMenu);
     }, [user, currentMenu]);
 
-    // در موبایل همیشه expanded است
     const isExpanded = isMobile ? true : (!isCollapsed || isHovered);
-    
-    // تعیین عرض بر اساس وضعیت
     const sidebarWidth = isExpanded ? 'w-64' : 'w-20';
 
-    // سایز فونت‌ها و آیکون‌ها بر اساس وضعیت
     const logoTextSize = isExpanded ? 'text-xl md:text-2xl' : 'text-2xl';
     const iconSize = isExpanded ? 'text-2xl md:text-3xl' : 'text-2xl md:text-3xl';
     const menuTextSize = isExpanded ? 'text-sm md:text-base' : 'text-base';
@@ -70,11 +61,10 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
     const userNameSize = isExpanded ? 'text-base md:text-lg' : 'text-lg';
     const userBadgeSize = 'text-xs';
 
-    // تابع toggle زیرمنو
     const toggleSubmenu = (e, menuLabel) => {
         e.preventDefault();
         e.stopPropagation();
-        if (!isExpanded) return; // اگر سایدبار بسته است، زیرمنو باز نشود
+        if (!isExpanded) return;
         
         setOpenSubmenus(prev => ({
             ...prev,
@@ -82,12 +72,10 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
         }));
     };
 
-    // بررسی باز بودن زیرمنو
     const isSubmenuOpen = (menuLabel) => {
         return openSubmenus[menuLabel] || false;
     };
 
-    // اگر user وجود نداشت، چیزی نمایش نده
     if (!user) {
         return null;
     }
@@ -98,7 +86,7 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
                 h-full flex flex-col transition-all duration-300 ease-in-out
                 ${!isMobile && sidebarWidth}
                 ${isMobile ? 'w-full' : ''}
-                bg-white text-gray-800 relative
+                bg-background-secondary text-primary relative border-l border-default
             `}
             onMouseEnter={() => !isMobile && setIsHovered(true)}
             onMouseLeave={() => !isMobile && setIsHovered(false)}
@@ -107,9 +95,9 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
             {isMobile && (
                 <button 
                     onClick={onClose}
-                    className="absolute left-2 top-2 p-2 hover:bg-gray-100 rounded-lg transition-colors z-10"
+                    className="absolute left-2 top-2 p-2 hover:bg-background-hover rounded-lg transition-colors z-10"
                 >
-                    <IoClose className="text-2xl text-gray-700" />
+                    <IoClose className="text-2xl text-primary" />
                 </button>
             )}
 
@@ -118,9 +106,9 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
                 p-3 md:p-4 mb-2 md:mb-4 flex items-center
                 ${isExpanded ? 'justify-start gap-2 md:gap-3' : 'justify-center'}
             `}>
-                <VscOrganization className={`${iconSize} text-gray-700 flex-shrink-0`} />
+                <VscOrganization className={`${iconSize} text-primary flex-shrink-0`} />
                 {isExpanded && (
-                    <span className={`${logoTextSize} font-bold whitespace-nowrap`}>
+                    <span className={`${logoTextSize} font-bold text-primary whitespace-nowrap`}>
                         فروشگاه بهزیستی
                     </span>
                 )}
@@ -135,17 +123,17 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
                     src={`https://i.pravatar.cc/100?u=${user.id}`} 
                     alt={user.name} 
                     className={`
-                        border-2 border-gray-200 transition-all duration-300
+                        border-2 border-default transition-all duration-300
                         ${isExpanded ? 'w-16 h-16 md:w-20 md:h-20 rounded-xl' : 'w-10 h-10 rounded-full'}
                         flex-shrink-0
                     `}
                 />
                 {isExpanded && (
                     <>
-                        <span className={`${userNameSize} font-bold text-center`}>
+                        <span className={`${userNameSize} font-bold text-primary text-center`}>
                             {user.name}
                         </span>
-                        <span className={`${userBadgeSize} text-center text-gray-500`}>
+                        <span className={`${userBadgeSize} text-muted text-center`}>
                             {user.badge}
                         </span>
                     </>
@@ -154,75 +142,84 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
 
             {/* منوی ناوبری */}
             <nav className="flex-1 overflow-y-auto py-2 md:py-4">
-                <ul className="flex flex-col gap-0.5 md:gap-1 px-2">
-                    {currentMenu.map(item => (
-                        <li key={item.path} className="relative">
-                            {/* آیتم اصلی منو */}
-                            <div className="relative">
-                                <NavLink 
-                                    to={item.path}
-                                    onClick={isMobile ? onClose : undefined}
-                                    className={({ isActive }) => 
-                                        `flex items-center px-2 md:px-3 py-2 md:py-2.5 rounded-lg transition-all duration-200
-                                        ${isActive ? 'bg-blue-500 text-white' : 'text-gray-700 hover:bg-gray-100'}
-                                        ${!isExpanded ? 'justify-center' : 'justify-between'}`
-                                    }
-                                    title={!isExpanded ? item.label : ''}
-                                >
-                                    <div className={`flex items-center ${isExpanded ? 'gap-2 md:gap-3' : ''}`}>
-                                        <span className={`${iconSize} flex-shrink-0`}>
-                                            {item.icon}
-                                        </span>
-                                        {isExpanded && (
-                                            <span className={`${menuTextSize} font-medium whitespace-nowrap`}>
-                                                {item.label}
+                {currentMenu.length === 0 ? (
+                    <div className="text-center text-muted py-4 px-2">
+                        <p className="text-sm">منویی وجود ندارد</p>
+                        <p className="text-xs mt-2 text-muted">نقش: {user?.role}</p>
+                    </div>
+                ) : (
+                    <ul className="flex flex-col gap-0.5 md:gap-1 px-2">
+                        {currentMenu.map((item, index) => (
+                            <li key={item.path || index} className="relative group">
+                                <div className="relative">
+                                    <NavLink 
+                                        to={item.path}
+                                        onClick={isMobile ? onClose : undefined}
+                                        className={({ isActive }) => 
+                                            `flex items-center px-2 md:px-3 py-2 md:py-2.5 rounded-lg transition-all duration-200
+                                            ${isActive 
+                                                ? 'bg-primary-lighter text-active icon-active' 
+                                                : 'text-primary icon-primary hover:bg-background-hover hover:text-active hover:icon-active'
+                                            }
+                                            ${!isExpanded ? 'justify-center' : 'justify-between'}`
+                                        }
+                                        title={!isExpanded ? item.label : ''}
+                                    >
+                                        <div className={`flex items-center ${isExpanded ? 'gap-2 md:gap-3' : ''}`}>
+                                            <span className={`${iconSize} flex-shrink-0 transition-colors ${
+                                                item.submenu && item.submenu.length > 0 ? 'icon-secondary' : ''
+                                            }`}>
+                                                {item.icon}
                                             </span>
-                                        )}
-                                    </div>
-                                    
-                                    {/* آیکون + و - برای زیرمنوها - فقط وقتی زیرمنو وجود داشته باشه */}
-                                    {isExpanded && item.submenu && item.submenu.length > 0 && (
-                                        <button
-                                            onClick={(e) => toggleSubmenu(e, item.label)}
-                                            className="p-1 hover:bg-gray-200 rounded-full transition-colors"
-                                        >
-                                            {isSubmenuOpen(item.label) ? (
-                                                <IoIosArrowUp className="text-lg" />
-                                            ) : (
-                                                <IoIosArrowDown className="text-lg" />
-                                            )}
-                                        </button>
-                                    )}
-                                </NavLink>
-                            </div>
-
-                            {/* زیرمنوها - فقط وقتی زیرمنو وجود داشته باشه و باز باشه */}
-                            {isExpanded && item.submenu && item.submenu.length > 0 && isSubmenuOpen(item.label) && (
-                                <ul className="mr-6 md:mr-8 mt-1 space-y-0.5">
-                                    {item.submenu.map(subItem => (
-                                        <li key={subItem.path}>
-                                            <NavLink
-                                                to={subItem.path}
-                                                onClick={isMobile ? onClose : undefined}
-                                                className={({ isActive }) =>
-                                                    `block px-3 md:px-4 py-1.5 md:py-2 rounded-lg transition-all duration-200 text-sm
-                                                    ${isActive 
-                                                        ? 'bg-blue-100 text-blue-700 font-medium' 
-                                                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                                                    }`
-                                                }
-                                            >
-                                                <span className={`${submenuTextSize} whitespace-nowrap`}>
-                                                    {subItem.label}
+                                            {isExpanded && (
+                                                <span className={`${menuTextSize} font-medium whitespace-nowrap transition-colors`}>
+                                                    {item.label}
                                                 </span>
-                                            </NavLink>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </li>
-                    ))}
-                </ul>
+                                            )}
+                                        </div>
+                                        
+                                        {isExpanded && item.submenu && item.submenu.length > 0 && (
+                                            <button
+                                                onClick={(e) => toggleSubmenu(e, item.label)}
+                                                className="p-1 rounded-full transition-colors hover:bg-background-hover"
+                                            >
+                                                {isSubmenuOpen(item.label) ? (
+                                                    <IoIosArrowUp className="text-lg text-secondary" />
+                                                ) : (
+                                                    <IoIosArrowDown className="text-lg text-secondary" />
+                                                )}
+                                            </button>
+                                        )}
+                                    </NavLink>
+                                </div>
+
+                                {isExpanded && item.submenu && item.submenu.length > 0 && isSubmenuOpen(item.label) && (
+                                    <ul className="mr-6 md:mr-8 mt-1 space-y-0.5">
+                                        {item.submenu.map((subItem, subIndex) => (
+                                            <li key={subItem.path || subIndex}>
+                                                <NavLink
+                                                    to={subItem.path}
+                                                    onClick={isMobile ? onClose : undefined}
+                                                    className={({ isActive }) =>
+                                                        `block px-3 md:px-4 py-1.5 md:py-2 rounded-lg transition-all duration-200 text-sm
+                                                        ${isActive 
+                                                            ? 'bg-primary-lighter text-active font-medium' 
+                                                            : 'text-secondary hover:bg-background-hover hover:text-active'
+                                                        }`
+                                                    }
+                                                >
+                                                    <span className={`${submenuTextSize} whitespace-nowrap`}>
+                                                        {subItem.label}
+                                                    </span>
+                                                </NavLink>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </nav>
         </div>
     );
