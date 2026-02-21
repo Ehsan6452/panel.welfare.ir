@@ -1,9 +1,9 @@
 // Routes/Seller/SellerRoutes.js
-import React from "react";
+// import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import ProtectedRoute from '../../Components/ProtectedRoute/ProtectedRoute';
 import { ROLES } from "../../Utilities/Roles";
-import { sellerRoutesConfig, getAllRoutes } from './SellerRoutesConfig';
+import { getAllRoutes } from './SellerRoutesConfig';
 
 function SellerRoutes() {
     // دریافت همه مسیرها از کانفیگ

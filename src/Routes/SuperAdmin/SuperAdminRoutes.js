@@ -1,9 +1,9 @@
 // Routes/SuperAdmin/SuperAdminRoutes.js
-import React from "react";
+// import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import ProtectedRoute from '../../Components/ProtectedRoute/ProtectedRoute';
 import { ROLES } from "../../Utilities/Roles";
-import { superAdminRoutesConfig, getAllRoutes } from './SuperAdminRoutesConfig';
+import { getAllRoutes } from './SuperAdminRoutesConfig';
 
 function SuperAdminRoutes() {
     // دریافت همه مسیرها از کانفیگ
