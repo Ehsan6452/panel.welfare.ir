@@ -1,38 +1,26 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import ProtectedRoute from '../../Components/ProtectedRoute/ProtectedRoute';
-import { ROLES } from "../../Utilities/Roles";
-import { getAllRoutes } from './StateAdminRoutesConfig';
+import { stateAdminRoutesConfig } from './StateAdminRoutesConfig';
 
 function StateAdminRoutes() {
-    // دریافت همه مسیرها از کانفیگ
-    const allRoutes = getAllRoutes();
-
+    const validPaths = stateAdminRoutesConfig.map(route => route.path);
+    
     return (
         <Routes>
-            <Route index element={
-                <ProtectedRoute allowedRoles={[ROLES.STATEADMIN]}>
-                    <Navigate to='dashboard' replace />
-                </ProtectedRoute>
-            }/>
-
-            {allRoutes.map(route => (
+            {/* مسیر پیش‌فرض */}
+            <Route index element={<Navigate to="dashboard" replace />} />
+            
+            {/* تعریف مسیرهای اصلی */}
+            {stateAdminRoutesConfig.map((route) => (
                 <Route
                     key={route.path}
                     path={route.path}
-                    element={
-                        <ProtectedRoute allowedRoles={[ROLES.STATEADMIN]}>
-                            {route.element}
-                        </ProtectedRoute>
-                    }
+                    element={route.element}
                 />
             ))}
-
-            <Route path="*" element={
-                <ProtectedRoute allowedRoles={[ROLES.STATEADMIN]}>
-                    <Navigate to='dashboard' replace />
-                </ProtectedRoute>
-            }/>
+            
+            {/* برای مسیرهای نامعتبر - ریدایرکت به داشبورد */}
+            <Route path="*" element={<Navigate to="/seller/dashboard" replace />} />
         </Routes>
     );
 }

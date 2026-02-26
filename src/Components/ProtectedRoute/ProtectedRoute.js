@@ -1,26 +1,22 @@
+// ProtectedRoute.js
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../Context/AuthContext';
+import { useAuth } from '../Context/AuthContext';
 
-function ProtectedRoute({ children, allowedRoles = [] }) {
-    const { user, loading } = useAuth();
-
-    if (loading) {
-        // می‌توانید یک کامپوننت لودینگ نمایش دهید
-        return <div className="flex items-center justify-center min-h-screen">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-        </div>;
-    }
+const ProtectedRoute = ({ children, allowedRoles }) => {
+    const { user } = useAuth();
 
     if (!user) {
         return <Navigate to="/login" replace />;
     }
 
-    if (allowedRoles.length > 0 && !allowedRoles.some(role => role.name === user.role)) {
-        return <Navigate to="/" replace />;
+    if (allowedRoles && !allowedRoles.includes(user.role)) {
+        // اگر نقش کاربر مجاز نبود، به داشبورد خودش هدایت شود
+        const dashboardPath = `/${user.role.toLowerCase().replace('_', '-')}/dashboard`;
+        return <Navigate to={dashboardPath} replace />;
     }
 
     return children;
-}
+};
 
 export default ProtectedRoute;

@@ -8,7 +8,7 @@ import Content from './Content/Content';
 import Login from '../Pages/Auth/Login';
 
 function AppContent() {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false); // اینو نگه می‌داریم برای دسکتاپ
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const { user } = useAuth();
@@ -30,9 +30,8 @@ function AppContent() {
   const toggleSidebar = () => {
     if (isMobile) {
       setIsMobileSidebarOpen(!isMobileSidebarOpen);
-    } else {
-      setIsSidebarCollapsed(!isSidebarCollapsed);
     }
+    // برای دسکتاپ دیگه کاری نمی‌کنیم
   };
 
   const closeMobileSidebar = () => {
@@ -75,11 +74,11 @@ function AppContent() {
         </>
       )}
 
-      {/* سایدبار برای دسکتاپ */}
+      {/* سایدبار برای دسکتاپ - همیشه باز */}
       {!isMobile && (
         <aside className="sticky top-0 h-screen bg-background-secondary text-primary hidden md:block border-l border-default">
           <Sidebar 
-            isCollapsed={isSidebarCollapsed}
+            isCollapsed={false} // همیشه باز
             isMobile={false}
           />
         </aside>
@@ -90,7 +89,7 @@ function AppContent() {
         <header className="sticky top-0 z-30 shadow-md border-b border-default bg-background-primary">
           <Header 
             onMenuClick={toggleSidebar} 
-            isSidebarCollapsed={isSidebarCollapsed}
+            isSidebarCollapsed={false} // اینو دیگه استفاده نمی‌کنیم
             isMobile={isMobile}
             isMobileSidebarOpen={isMobileSidebarOpen}
           />

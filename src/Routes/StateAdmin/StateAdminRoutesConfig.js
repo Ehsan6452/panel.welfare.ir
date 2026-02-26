@@ -11,15 +11,14 @@ import { AiOutlineShop } from "react-icons/ai";
 
 // import pages
 import Dashboard from '../../Pages/StateAdmin/Dashboard/Dashboard';
-import Shops from '../../Pages/StateAdmin/Shops/Shop';
+import Shops from '../../Pages/StateAdmin/Shops/Shops';
 import Orders from '../../Pages/StateAdmin/Orders/Orders';
 import Payments from '../../Pages/StateAdmin/Payments/Payments';
 import Reports from '../../Pages/StateAdmin/Reports/Reports';
 import Support from '../../Pages/StateAdmin/Support/Support';
 import Setting from '../../Pages/StateAdmin/Setting/Setting';
 
-
-// ساختار اصلی مسیرها
+// تنظیمات اصلی مسیرها
 export const stateAdminRoutesConfig = [
     {
         path: 'dashboard',
@@ -87,21 +86,8 @@ export const getSidebarMenuItems = () => {
 
 // دریافت تمام مسیرها برای استفاده در Routes
 export const getAllRoutes = () => {
-    const routes = [];
-    
-    stateAdminRoutesConfig.forEach(route => {
-        routes.push({
-            path: route.path,
-            element: route.element
-        });
-        
-        route.subRoutes.forEach(sub => {
-            routes.push({
-                path: `${route.path}/${sub.path}`,
-                element: sub.element
-            });
-        });
-    });
-    
-    return routes;
+    return stateAdminRoutesConfig.map(route => ({
+        path: route.path,
+        element: route.element
+    }));
 };

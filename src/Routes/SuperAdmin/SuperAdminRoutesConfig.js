@@ -15,10 +15,7 @@ import Reports from '../../Pages/SuperAdmin/Reports/Reports';
 import Support from '../../Pages/SuperAdmin/Support/Support';
 import Setting from '../../Pages/SuperAdmin/Setting/Setting';
 
-// import submenu pages
-
-
-
+// تنظیمات اصلی مسیرها
 export const superAdminRoutesConfig = [
     {
         path: 'dashboard',
@@ -79,21 +76,8 @@ export const getSidebarMenuItems = () => {
 
 // دریافت تمام مسیرها برای استفاده در Routes
 export const getAllRoutes = () => {
-    const routes = [];
-    
-    superAdminRoutesConfig.forEach(route => {
-        routes.push({
-            path: route.path,
-            element: route.element
-        });
-        
-        route.subRoutes.forEach(sub => {
-            routes.push({
-                path: `${route.path}/${sub.path}`,
-                element: sub.element
-            });
-        });
-    });
-    
-    return routes;
+    return superAdminRoutesConfig.map(route => ({
+        path: route.path,
+        element: route.element
+    }));
 };

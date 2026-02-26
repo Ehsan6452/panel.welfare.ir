@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { ROLES } from '../../Utilities/Roles';
-import ProtectedRoute from '../../Components/ProtectedRoute/ProtectedRoute';
 import SuperAdminRoutes from '../../Routes/SuperAdmin/SuperAdminRoutes';
 import StateAdminRoutes from '../../Routes/StateAdmin/StateAdminRoutes';
 import SellerRoutes from '../../Routes/Seller/SellerRoutes';
@@ -10,43 +9,50 @@ import SellerRoutes from '../../Routes/Seller/SellerRoutes';
 function Content() {
     const { user } = useAuth();
 
-    // تابع کمکی برای تبدیل نقش به مسیر
-    const getDefaultRoute = () => {
-        switch(user?.role) {
+    if (!user) return null;
+
+    // مسیر پایه بر اساس نقش
+    const getBasePath = () => {
+        switch(user.role) {
             case ROLES.SUPERADMIN.name:
-                return '/super-admin/dashboard';
+                return '/super-admin';
             case ROLES.STATEADMIN.name:
-                return '/state-admin/dashboard';
+                return '/state-admin';
             case ROLES.SELLER.name:
-                return '/seller/dashboard';
+                return '/seller';
             default:
                 return '/';
         }
     };
 
+    const basePath = getBasePath();
+
     return (
         <Routes>
+            {/* مسیر اصلی - ریدایرکت به داشبورد */}
+            <Route path="/" element={<Navigate to={`${basePath}/dashboard`} replace />} />
+            
+            {/* مسیرهای هر نقش */}
             <Route path="/super-admin/*" element={
-                <ProtectedRoute allowedRoles={[ROLES.SUPERADMIN]}>
-                    <SuperAdminRoutes />
-                </ProtectedRoute>
+                user.role === ROLES.SUPERADMIN.name ? 
+                <SuperAdminRoutes /> : 
+                <Navigate to={basePath + '/dashboard'} replace />
             } />
-
+            
             <Route path="/state-admin/*" element={
-                <ProtectedRoute allowedRoles={[ROLES.STATEADMIN]}>
-                    <StateAdminRoutes />
-                </ProtectedRoute>
+                user.role === ROLES.STATEADMIN.name ? 
+                <StateAdminRoutes /> : 
+                <Navigate to={basePath + '/dashboard'} replace />
             } />
-
+            
             <Route path="/seller/*" element={
-                <ProtectedRoute allowedRoles={[ROLES.SELLER]}>
-                    <SellerRoutes />
-                </ProtectedRoute>
+                user.role === ROLES.SELLER.name ? 
+                <SellerRoutes /> : 
+                <Navigate to={basePath + '/dashboard'} replace />
             } />
 
-            <Route path="/" element={
-                <Navigate to={getDefaultRoute()} replace />
-            } />
+            {/* هر مسیر دیگری - ریدایرکت به داشبورد */}
+            <Route path="*" element={<Navigate to={basePath + '/dashboard'} replace />} />
         </Routes>
     );
 }

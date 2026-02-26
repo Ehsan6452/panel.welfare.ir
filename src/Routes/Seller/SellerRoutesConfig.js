@@ -18,7 +18,7 @@ import Reports from '../../Pages/Seller/Reports/Reports';
 import Support from '../../Pages/Seller/Support/Support';
 import Setting from '../../Pages/Seller/Setting/Setting';
 
-
+// تنظیمات اصلی مسیرها
 export const sellerRoutesConfig = [
     {
         path: 'dashboard',
@@ -86,21 +86,8 @@ export const getSidebarMenuItems = () => {
 
 // دریافت تمام مسیرها برای استفاده در Routes
 export const getAllRoutes = () => {
-    const routes = [];
-    
-    sellerRoutesConfig.forEach(route => {
-        routes.push({
-            path: route.path,
-            element: route.element
-        });
-        
-        route.subRoutes.forEach(sub => {
-            routes.push({
-                path: `${route.path}/${sub.path}`,
-                element: sub.element
-            });
-        });
-    });
-    
-    return routes;
+    return sellerRoutesConfig.map(route => ({
+        path: route.path,
+        element: route.element
+    }));
 };

@@ -1,38 +1,27 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import ProtectedRoute from '../../Components/ProtectedRoute/ProtectedRoute';
-import { ROLES } from "../../Utilities/Roles";
-import { getAllRoutes } from './SellerRoutesConfig';
+import { sellerRoutesConfig } from './SellerRoutesConfig';
 
 function SellerRoutes() {
-    // دریافت همه مسیرها از کانفیگ
-    const allRoutes = getAllRoutes();
-
+    // آرایه‌ای از مسیرهای معتبر
+    const validPaths = sellerRoutesConfig.map(route => route.path);
+    
     return (
         <Routes>
-            <Route index element={
-                <ProtectedRoute allowedRoles={[ROLES.SELLER]}>
-                    <Navigate to='dashboard' replace />
-                </ProtectedRoute>
-            }/>
-
-            {allRoutes.map(route => (
+            {/* مسیر پیش‌فرض */}
+            <Route index element={<Navigate to="dashboard" replace />} />
+            
+            {/* تعریف مسیرهای اصلی */}
+            {sellerRoutesConfig.map((route) => (
                 <Route
                     key={route.path}
                     path={route.path}
-                    element={
-                        <ProtectedRoute allowedRoles={[ROLES.SELLER]}>
-                            {route.element}
-                        </ProtectedRoute>
-                    }
+                    element={route.element}
                 />
             ))}
-
-            <Route path="*" element={
-                <ProtectedRoute allowedRoles={[ROLES.SELLER]}>
-                    <Navigate to='dashboard' replace />
-                </ProtectedRoute>
-            }/>
+            
+            {/* برای مسیرهای نامعتبر - ریدایرکت به داشبورد */}
+            <Route path="*" element={<Navigate to="/seller/dashboard" replace />} />
         </Routes>
     );
 }
