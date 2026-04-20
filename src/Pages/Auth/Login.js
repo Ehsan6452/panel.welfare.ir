@@ -17,9 +17,8 @@ function Login() {
         
         try {
             await login(username, password);
-            navigate('/'); // بعد از لاگین موفق به صفحه اصلی می‌رود
+            navigate('/');
         } catch (err) {
-            // خطا توسط Context مدیریت می‌شود
             console.error('Login failed:', err);
         } finally {
             setIsLoading(false);

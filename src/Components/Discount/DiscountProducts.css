@@ -1,0 +1,164 @@
+/* Components/Discount/DiscountProducts/DiscountProducts.css */
+
+.discount-products {
+display: flex;
+flex-direction: column;
+gap: 12px;
+}
+
+/* ── نوار وضعیت ── */
+.dp-status-bar {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 8px 14px;
+background: rgb(var(--color-background-secondary));
+border: 1px solid rgb(var(--color-border));
+border-radius: 8px;
+font-size: 13px;
+}
+
+.dp-status-edit {
+color: rgb(var(--color-text-secondary));
+}
+
+.dp-remaining {
+margin-right: auto;
+font-size: 12px;
+font-weight: 600;
+color: rgb(var(--color-success));
+padding: 3px 8px;
+border-radius: 20px;
+background: rgba(var(--color-success), 0.12);
+}
+
+.dp-remaining.urgent {
+color: rgb(var(--color-warning));
+background: rgba(var(--color-warning), 0.12);
+}
+
+.dp-remaining.expired {
+color: rgb(var(--color-danger));
+background: rgba(var(--color-danger), 0.12);
+}
+
+/* ── بلاک اصلی ── */
+.dp-block {
+background: rgb(var(--color-background-secondary));
+border: 1px solid rgb(var(--color-border-dark));
+border-radius: 12px;
+overflow: hidden;
+}
+
+/* ── هدر دسته اصلی ── */
+.dp-header {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+gap: 12px;
+padding: 16px 20px;
+}
+
+.dp-header.category-level {
+background: rgb(var(--color-background-tertiary));
+border-bottom: 1px solid rgb(var(--color-border));
+}
+
+.dp-icon {
+font-size: 18px;
+flex-shrink: 0;
+}
+
+.dp-title {
+font-size: 15px;
+font-weight: 700;
+color: rgb(var(--color-text-primary));
+flex-shrink: 0;
+}
+
+.dp-fields-wrap {
+flex: 1;
+min-width: 0;
+}
+
+/* ── دکمه‌های عملیات ── */
+.dp-actions {
+display: flex;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+margin-right: auto;
+}
+
+.dp-save-btn {
+background: rgb(var(--color-primary));
+color: rgb(var(--color-text-white));
+border: none;
+border-radius: 8px;
+padding: 8px 18px;
+font-size: 13px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.2s;
+white-space: nowrap;
+}
+
+.dp-save-btn:hover:not(:disabled) {
+background: rgb(var(--color-primary-dark));
+}
+
+.dp-save-btn:disabled {
+opacity: 0.6;
+cursor: not-allowed;
+}
+
+.dp-save-btn.saved {
+background: rgb(var(--color-success));
+}
+
+.dp-arrow-btn {
+background: rgb(var(--color-background-secondary));
+border: 1px solid rgb(var(--color-border));
+border-radius: 6px;
+width: 32px;
+height: 32px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 11px;
+color: rgb(var(--color-text-secondary));
+cursor: pointer;
+transition: all 0.2s;
+}
+
+.dp-arrow-btn:hover {
+border-color: rgb(var(--color-primary));
+color: rgb(var(--color-primary));
+}
+
+.dp-arrow-btn .dp-arrow-icon,
+.dp-arrow-btn {
+transition: transform 0.2s;
+}
+
+.dp-arrow-btn.open {
+transform: rotate(180deg);
+}
+
+/* ── فرزندان (زیردسته‌ها) ── */
+.dp-children {
+display: flex;
+flex-direction: column;
+gap: 8px;
+padding: 12px 20px 16px 20px;
+background: rgb(var(--color-background-primary));
+}
+
+/* ── دکمه ذخیره مستقل (برای حالت زیردسته و محصول) ── */
+.dp-standalone-action {
+display: flex;
+justify-content: flex-end;
+padding: 12px 20px;
+border-top: 1px solid rgb(var(--color-border));
+background: rgb(var(--color-background-secondary));
+}

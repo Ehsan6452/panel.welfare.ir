@@ -1,42 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from '../Context/AuthContext';
-import { ThemeProvider } from '../Context/ThemeContext'; // اضافه کردن
+import { ThemeProvider } from '../Context/ThemeContext'; 
+import { useDeviceType } from "../Hooks/useDeviceType";
 import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
 import Content from './Content/Content';
 import Login from '../Pages/Auth/Login';
 
 function AppContent() {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false); // اینو نگه می‌داریم برای دسکتاپ
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const { isMobile, isTablet } = useDeviceType(); // ← اضافه شد: isTablet
+  const isMobileOrTablet = isMobile || isTablet;  // ← جدید
   const { user } = useAuth();
 
-  useEffect(() => {
-    const handleResize = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
-      
-      if (!mobile && isMobileSidebarOpen) {
-        setIsMobileSidebarOpen(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMobileSidebarOpen]);
-
   const toggleSidebar = () => {
-    if (isMobile) {
+    if (isMobileOrTablet) {                        // ← تغییر: isMobile → isMobileOrTablet
       setIsMobileSidebarOpen(!isMobileSidebarOpen);
     }
-    // برای دسکتاپ دیگه کاری نمی‌کنیم
   };
 
   const closeMobileSidebar = () => {
     setIsMobileSidebarOpen(false);
   };
+
+  // بستن سایدبار هنگام رفتن به دسکتاپ
+  useEffect(() => {
+    if (!isMobileOrTablet && isMobileSidebarOpen) { // ← تغییر: !isMobile → !isMobileOrTablet
+      setIsMobileSidebarOpen(false);
+    }
+  }, [isMobileOrTablet, isMobileSidebarOpen]);
 
   if (!user) {
     return (
@@ -49,8 +42,9 @@ function AppContent() {
 
   return (
     <div className="flex min-h-screen bg-background-primary text-primary">
-      {/* سایدبار برای موبایل */}
-      {isMobile && (
+
+      {/* سایدبار برای موبایل و تبلت */}
+      {isMobileOrTablet && (                        // ← تغییر: isMobile → isMobileOrTablet
         <>
           {isMobileSidebarOpen && (
             <div 
@@ -75,10 +69,10 @@ function AppContent() {
       )}
 
       {/* سایدبار برای دسکتاپ - همیشه باز */}
-      {!isMobile && (
-        <aside className="sticky top-0 h-screen bg-background-secondary text-primary hidden md:block border-l border-default">
+      {!isMobileOrTablet && (                       // ← تغییر: !isMobile → !isMobileOrTablet
+        <aside className="sticky top-0 h-screen bg-background-secondary text-primary hidden md:block borde-l border-default">
           <Sidebar 
-            isCollapsed={false} // همیشه باز
+            isCollapsed={false}
             isMobile={false}
           />
         </aside>
@@ -89,16 +83,17 @@ function AppContent() {
         <header className="sticky top-0 z-30 shadow-md border-b border-default bg-background-primary">
           <Header 
             onMenuClick={toggleSidebar} 
-            isSidebarCollapsed={false} // اینو دیگه استفاده نمی‌کنیم
-            isMobile={isMobile}
+            isSidebarCollapsed={false}
+            isMobile={isMobileOrTablet}             // ← تغییر: isMobile → isMobileOrTablet
             isMobileSidebarOpen={isMobileSidebarOpen}
           />
         </header>
 
-        <main className="flex-1 p-4 md:p-6 lg:p-8">
+        <main className="flex flex-1 p-4 md:p-6 lg:p-8">
           <Content />
         </main>
       </div>
+
     </div>
   );
 }

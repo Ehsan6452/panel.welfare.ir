@@ -1,0 +1,60 @@
+/* Components/Discount/VariableRow/VariableRow.css */
+
+.variable-row {
+    background: rgb(var(--color-background-primary));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 6px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: opacity 0.2s;
+}
+
+.variable-row.excluded {
+    opacity: 0.45;
+}
+
+.vr-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.vr-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.vr-checkbox input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: rgb(var(--color-primary));
+    cursor: pointer;
+}
+
+.vr-checkbox-label {
+    font-size: 12px;
+    color: rgb(var(--color-text-secondary));
+}
+
+.vr-name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: rgb(var(--color-text-primary));
+    font-weight: 500;
+}
+
+.vr-icon {
+    font-size: 8px;
+    color: rgb(var(--color-primary));
+}
+
+.vr-fields {
+    padding-right: 28px;
+}

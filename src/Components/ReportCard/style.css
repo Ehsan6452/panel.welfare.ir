@@ -1,0 +1,96 @@
+@import url(../../Themes/Dark.css);
+
+.report-card
+{
+    background-color: rgb(var(--color-background-secondary));
+    min-height: inherit;
+    position: relative;
+}
+.tabs>ul>li
+{
+    padding: 7px;
+}
+.tabs>ul>li:hover
+{
+    background-color: rgb(var(--color-background-hover));
+    color: rgb(var(--color-text-active));;
+}
+/* Report Card specific styles */
+.report-card {
+  font-family: inherit;
+}
+
+.tabs {
+  font-size: 1rem; /* 14px - دسکتاپ */
+  font-weight: 500;
+}
+.report-card .value-display {
+  font-size: 1.6rem;   /* 36px - همون text-4xl دسکتاپ */
+}
+/* ─── تبلت افقی ─── */
+@media (max-width: 1024px) and (min-width: 641px) {
+  .report-card .tabs {
+    font-size: 1.25rem;   /* 12px - تب‌ها کوچک‌تر */
+  }
+
+  .report-card .value-display {
+    font-size: 2.2rem;   /* 28px - جای text-4xl */
+  }
+}
+
+/* ─── موبایل ─── */
+@media (max-width: 640px) {
+  .report-card .tabs {
+    font-size: 1rem;   /* ~10px */
+  }
+
+  .report-card .value-display {
+    font-size: 1.8rem;    /* ~22px */
+  }
+}
+
+.info-hint-wrapper {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 20;
+}
+
+.info-hint-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;    /* background-color: rgba(96, 165, 250, 0.2); */
+    border: 1px solid rgb(var(--color-primary-light));
+    color: rgb(var(--color-primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: help;
+}
+
+.info-hint-tooltip {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: rgb(var(--color-background-tertiary));
+    border-radius: 0.5rem;
+    color: rgb(var(--color-text-primary));
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+    min-width: 150px;
+}
+
+.info-hint-wrapper:hover .info-hint-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+

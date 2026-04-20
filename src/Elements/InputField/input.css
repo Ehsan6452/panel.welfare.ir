@@ -1,0 +1,51 @@
+.input-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.input-label {
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+/* فریمورک اصلی input */
+.input-element {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid rgb(var(--color-border));
+    background-color: rgb(var(--color-background-secondary));
+    font-size: 1rem;
+    color: rgb(var(--color-text-secendary));
+    outline: none;
+    box-sizing: border-box;
+}
+
+.input-element:focus {
+    border: 2px solid rgb(var(--color-border));
+}
+
+/* خطا */
+.input-error {
+    border-color: rgb(220, 53, 69);
+}
+
+.input-error-message {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    color: rgb(220, 53, 69);
+}
+.input-field textarea
+{
+    flex: 1; 
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background-color: rgb(var(--color-background-secondary));
+    font-size: 1rem;
+    color: rgb(var(--color-text-secendary));
+    resize: none;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+}

@@ -1,0 +1,142 @@
+.Discount
+{
+    flex-direction: column;
+    justify-content: start;
+}
+.Discount-Filter
+{
+    min-height: 10%;
+    flex-direction: row;
+}
+
+.Discount-Products
+{
+    min-height: 90%;
+}
+.Discount-Products-Card
+{
+    
+}
+.filter-category-select {
+    min-width: 200px;
+    max-width: 240px;
+}
+
+/* wrapper برای position شناور */
+/* wrapper */
+.search-wrapper {
+    position: relative;
+    max-width: 30%;
+}
+
+/* input اصلی */
+.search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    direction: rtl;
+    background-color: rgb(var(--color-background-secondary));
+    color: rgb(var(--color-text-primary));
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input::placeholder {
+    color: rgb(var(--color-text-muted));
+}
+
+.search-input:focus {
+    border-color: rgb(var(--color-primary));
+    box-shadow: 0 0 0 2px rgba(var(--color-primary), 0.2);
+}
+
+/* باکس شناور */
+.search-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    left: 0;
+    background: rgb(var(--color-background-secondary));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    max-height: 320px;
+    overflow-y: auto;
+    z-index: 1000;
+    direction: rtl;
+}
+
+/* scrollbar استایل */
+.search-dropdown::-webkit-scrollbar {
+    width: 4px;
+}
+.search-dropdown::-webkit-scrollbar-track {
+    background: rgb(var(--color-background-secondary));
+}
+.search-dropdown::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-border-dark));
+    border-radius: 4px;
+}
+
+/* هر ردیف محصول */
+.search-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid rgb(var(--color-border));
+    transition: background 0.15s;
+}
+
+.search-item:last-child {
+    border-bottom: none;
+}
+
+.search-item:hover {
+    background: rgb(var(--color-background-hover));
+}
+
+.search-item:hover .search-item-title {
+    color: rgb(var(--color-text-active));
+}
+
+/* عکس محصول */
+.search-item-image {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+    border: 1px solid rgb(var(--color-border));
+}
+
+/* اطلاعات کنار عکس */
+.search-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.search-item-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(var(--color-text-primary));
+    transition: color 0.15s;
+}
+
+.search-item-price {
+    font-size: 12px;
+    color: rgb(var(--color-text-muted));
+}
+
+/* حالت‌های loading و empty */
+.search-loading,
+.search-empty {
+    padding: 16px;
+    text-align: center;
+    font-size: 13px;
+    color: rgb(var(--color-text-disabled));
+}

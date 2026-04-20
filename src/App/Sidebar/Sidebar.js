@@ -1,15 +1,5 @@
 // Sidebar.js
 import React, { useState, useEffect } from 'react';
-import { 
-  RxDashboard,
-  RxBarChart,
-  RxQuestionMarkCircled,
-  RxGear,
-  RxStack,
-} from "react-icons/rx";
-import { MdOutlineHub, MdOutlinePayment } from "react-icons/md";
-import { GrGallery } from "react-icons/gr";
-import { AiOutlineShop } from "react-icons/ai";
 import { VscOrganization } from "react-icons/vsc";
 import { IoClose} from "react-icons/io5";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
@@ -27,33 +17,17 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
     const [openSubmenus, setOpenSubmenus] = useState({});
     const { user } = useAuth();
 
-    useEffect(() => {
-        console.log('Sidebar - User:', user);
-    }, [user]);
-
     const menuItems = {
         [ROLES.SUPERADMIN.name]: getSuperAdminMenu(),
         [ROLES.STATEADMIN.name]: getStateAdminMenu(),
         [ROLES.SELLER.name]: getSellerMenu()
     };
 
-    useEffect(() => {
-        console.log('Sidebar - SuperAdmin Menu:', getSuperAdminMenu());
-        console.log('Sidebar - StateAdmin Menu:', getStateAdminMenu());
-        console.log('Sidebar - Seller Menu:', getSellerMenu());
-        console.log('Sidebar - All Menu Items:', menuItems);
-    }, []);
-
     const currentMenu = user && menuItems[user.role] ? menuItems[user.role] : [];
-    
-    useEffect(() => {
-        console.log('Sidebar - Current User Role:', user?.role);
-        console.log('Sidebar - Current Menu:', currentMenu);
-    }, [user, currentMenu]);
 
     const isExpanded = isMobile ? true : (!isCollapsed || isHovered);
-    const sidebarWidth = isExpanded ? 'w-64' : 'w-20';
-
+    const sidebarWidth = isExpanded ? 'w-70' : 'w-40';
+    // const sidebarWidth = isExpanded ? "w-72 lg:w-70" : "w-20";
     const logoTextSize = isExpanded ? 'text-xl md:text-2xl' : 'text-2xl';
     const iconSize = isExpanded ? 'text-2xl md:text-3xl' : 'text-2xl md:text-3xl';
     const menuTextSize = isExpanded ? 'text-sm md:text-base' : 'text-base';
@@ -81,15 +55,15 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
     }
 
     return (
-        <div 
-            className={`
-                h-full flex flex-col transition-all duration-300 ease-in-out
-                ${!isMobile && sidebarWidth}
-                ${isMobile ? 'w-full' : ''}
-                bg-background-secondary text-primary relative border-l border-default
-            `}
-            onMouseEnter={() => !isMobile && setIsHovered(true)}
-            onMouseLeave={() => !isMobile && setIsHovered(false)}
+        <div
+        className={`
+            h-full flex flex-col transition-all duration-300 ease-in-out
+            ${!isMobile && sidebarWidth}
+            ${isMobile ? "w-70" : "w-70"}
+            bg-background-secondary text-primary relative border-l border-default
+        `}
+        onMouseEnter={() => !isMobile && setIsHovered(true)}
+        onMouseLeave={() => !isMobile && setIsHovered(false)}
         >
             {/* دکمه بستن برای موبایل */}
             {isMobile && (
@@ -120,7 +94,7 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
                 ${isExpanded ? 'gap-1 md:gap-2' : 'gap-1'}
             `}>
                 <img 
-                    src={`https://i.pravatar.cc/100?u=${user.id}`} 
+                    src="https://my.uupload.ir/dl/n2VyZn6M"
                     alt={user.name} 
                     className={`
                         border-2 border-default transition-all duration-300

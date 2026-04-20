@@ -1,0 +1,30 @@
+.btn {
+    padding: 8px 16px;
+    border-radius: 10px;
+    max-height: 40px !important;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 0.9rem;
+}
+.btn-save {
+    background-color: rgb(var(--color-success))
+}
+.btn-update {
+    background-color: rgb(var(--color-warning))
+}
+.btn-danger, .btn-delete, .btn-cancel {
+    background-color: rgb(var(--color-danger))
+}
+
+.btn-add{
+    background-color: rgb(var(--color-info))
+}
+.btn-save:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.set-end
+{
+    margin-top: 3.5%;
+}

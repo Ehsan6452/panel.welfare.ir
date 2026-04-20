@@ -1,0 +1,10 @@
+.quick-view{
+    min-height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    background-color: rgb(var(--color-background-secondary));
+}
+
+

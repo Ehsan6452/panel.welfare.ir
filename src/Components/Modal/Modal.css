@@ -1,0 +1,63 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+/* مودال 80 درصد صفحه */
+.modal-content {
+  background: rgb(var(--color-background-secondary));
+  color: rgb(var(--color-text-primary));
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 12px;
+
+  width: 80vw;          /* 80 درصد عرض */
+  height: 80vh;         /* 80 درصد ارتفاع */
+
+  padding: 22px 26px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;      /* جلوگیری از بیرون‌زدگی */
+
+  animation: modalFadeIn 0.25s ease-out;
+}
+
+/* محتوا اسکرول شود */
+.modal-body {
+  display: flex;
+  margin-top: 16px;
+  overflow-y: auto;
+  padding-right: 8px;
+  color: rgb(var(--color-text-secondary));
+}
+
+/* دکمه بستن */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+  color: rgb(var(--color-text-muted));
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: rgb(var(--color-text-white));
+}
+
+/* انیمیشن */
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}

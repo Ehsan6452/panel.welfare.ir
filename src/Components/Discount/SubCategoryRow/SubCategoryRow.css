@@ -1,0 +1,113 @@
+/* Components/Discount/SubCategoryRow/SubCategoryRow.css */
+
+.subcategory-row-wrapper {
+    background: rgb(var(--color-background-tertiary));
+    border: 1px solid rgb(var(--color-border-dark));
+    border-radius: 10px;
+    overflow: hidden;
+    transition: opacity 0.2s;
+}
+
+.subcategory-row-wrapper.excluded {
+    opacity: 0.45;
+}
+
+.scr-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+}
+
+.scr-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    color: rgb(var(--color-text-secondary));
+    user-select: none;
+    white-space: nowrap;
+}
+
+.scr-checkbox input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: rgb(var(--color-primary));
+    cursor: pointer;
+}
+
+.scr-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(var(--color-text-primary));
+    flex-shrink: 0;
+}
+
+.scr-icon {
+    font-size: 16px;
+}
+
+.scr-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: auto;
+    background: rgb(var(--color-background-secondary));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 6px;
+    padding: 5px 10px;
+    color: rgb(var(--color-text-secondary));
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.scr-toggle:hover:not(:disabled) {
+    background: rgb(var(--color-background-hover));
+    color: rgb(var(--color-text-primary));
+    border-color: rgb(var(--color-primary));
+}
+
+.scr-toggle:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.scr-toggle-arrow {
+    font-size: 10px;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+.scr-toggle.open .scr-toggle-arrow {
+    transform: rotate(180deg);
+}
+
+.scr-loading {
+    font-size: 12px;
+    color: rgb(var(--color-text-muted));
+}
+
+/* لیست محصولات داخل زیردسته */
+.scr-products {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 18px 14px 18px;
+    border-top: 1px solid rgb(var(--color-border));
+    background: rgb(var(--color-background-secondary));
+}
+
+.scr-empty {
+    font-size: 13px;
+    color: rgb(var(--color-text-muted));
+    text-align: center;
+    padding: 12px 0;
+    margin: 0;
+}

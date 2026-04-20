@@ -1,0 +1,12 @@
+.product-images-empty {
+    background-color: rgb(var(--color-background-secondary));
+    border-radius: 16px;
+}
+
+ @media (max-width: 480px) {
+    .xy-80
+    {
+        height: 80%;
+        width: 89%;
+    }
+ }

@@ -1,0 +1,61 @@
+.shop
+{
+    flex-direction: column;
+    justify-content: start;
+}
+/* ---------- Shop Info ---------- */
+.shop-info
+{
+    min-height: 47%;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+/* ---------- Shop Info => Profile Image ---------- */
+.shop-info .profile-image
+{
+    min-width: 40%;
+    justify-content: center;
+}
+.shop-info .profile-image .circle
+{
+    border-radius: 10%;
+}
+/* ---------- Shop Info => Profile Info ---------- */
+.shop-info .profile-info
+{
+    min-width: 60%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.shop-info .w-mid
+{
+    max-width: 50%;
+}
+/* ---------- Shop Info => Profile Badge ---------- */
+.shop-info .profile-badg
+{
+    min-width: 40%;
+    max-height: 20%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.profile-badg .badg
+{
+    width: 70px;
+    text-align: center;
+    background-color: rgb(var(--color-background-secondary));
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 20%;
+}
+/* ---------- Shop Info  ---------- */
+
+.shop-products
+{
+    min-height: 53%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: start;
+    flex-wrap: wrap;
+}

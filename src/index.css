@@ -178,6 +178,15 @@ ul, li, a {
   }
 }
 
-.show {
+.show1 {
   border: 1px solid red;
+}
+.show2 {
+  border: 1px solid blue;
+}
+
+
+.disable
+{
+  display:none;
 }

@@ -1,58 +1,28 @@
-import React from "react";
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
-import { ROLES } from '../../Utilities/Roles';
-import SuperAdminRoutes from '../../Routes/SuperAdmin/SuperAdminRoutes';
-import StateAdminRoutes from '../../Routes/StateAdmin/StateAdminRoutes';
-import SellerRoutes from '../../Routes/Seller/SellerRoutes';
+import RoleBasedElement from '../../Routes/RoleBasedElement';
 
 function Content() {
     const { user } = useAuth();
-
     if (!user) return null;
-
-    // مسیر پایه بر اساس نقش
-    const getBasePath = () => {
-        switch(user.role) {
-            case ROLES.SUPERADMIN.name:
-                return '/super-admin';
-            case ROLES.STATEADMIN.name:
-                return '/state-admin';
-            case ROLES.SELLER.name:
-                return '/seller';
-            default:
-                return '/';
-        }
-    };
-
-    const basePath = getBasePath();
 
     return (
         <Routes>
-            {/* مسیر اصلی - ریدایرکت به داشبورد */}
-            <Route path="/" element={<Navigate to={`${basePath}/dashboard`} replace />} />
-            
-            {/* مسیرهای هر نقش */}
-            <Route path="/super-admin/*" element={
-                user.role === ROLES.SUPERADMIN.name ? 
-                <SuperAdminRoutes /> : 
-                <Navigate to={basePath + '/dashboard'} replace />
-            } />
-            
-            <Route path="/state-admin/*" element={
-                user.role === ROLES.STATEADMIN.name ? 
-                <StateAdminRoutes /> : 
-                <Navigate to={basePath + '/dashboard'} replace />
-            } />
-            
-            <Route path="/seller/*" element={
-                user.role === ROLES.SELLER.name ? 
-                <SellerRoutes /> : 
-                <Navigate to={basePath + '/dashboard'} replace />
-            } />
-
-            {/* هر مسیر دیگری - ریدایرکت به داشبورد */}
-            <Route path="*" element={<Navigate to={basePath + '/dashboard'} replace />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<RoleBasedElement path="dashboard" />} />
+            <Route path="/shop" element={<RoleBasedElement path="shop" />}/>
+                <Route path="/shop/products" element={<RoleBasedElement path="shop/products" />} />
+                <Route path="/shop/new-product" element={<RoleBasedElement path="shop/new-product" key='new'/>} />
+                <Route path="/shop/edit-product/:id" element={<RoleBasedElement path="shop/edit-product" key='edit'/>} />
+                <Route path="/shop/discounts" element={<RoleBasedElement path="shop/discounts" />} />
+            <Route path="/shops" element={<RoleBasedElement path="shops" />} />
+            <Route path="/states" element={<RoleBasedElement path="states" />} />
+            <Route path="/orders" element={<RoleBasedElement path="orders" />} />
+            <Route path="/payments" element={<RoleBasedElement path="payments" />} />
+            <Route path="/reports" element={<RoleBasedElement path="reports" />} />
+            <Route path="/support" element={<RoleBasedElement path="support" />} />
+            <Route path="/setting" element={<RoleBasedElement path="setting" />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
     );
 }

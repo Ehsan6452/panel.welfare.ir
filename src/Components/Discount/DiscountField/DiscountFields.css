@@ -1,0 +1,50 @@
+/* Components/Discount/DiscountFields/DiscountFields.css */
+
+.discount-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.df-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 120px;
+    flex: 1;
+}
+
+.df-label {
+    font-size: 11px;
+    color: rgb(var(--color-text-muted));
+    font-weight: 500;
+}
+
+.df-input {
+    background: rgb(var(--color-background-primary));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    color: rgb(var(--color-text-primary));
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.df-input:focus {
+    border-color: rgb(var(--color-primary));
+}
+
+.df-input:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* حذف فلش‌های input عددی */
+.df-input[type="number"]::-webkit-inner-spin-button,
+.df-input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
