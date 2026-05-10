@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import QuickView from "../QuickView";
 
-function FilteredQuickView({ filters, titles, data, statusIndex,onRowClick }) {
+function FilteredQuickView({ tabs, column, data, statusIndex,onRowClick }) {
 
     const [values, setValues] = useState([]);
 
@@ -9,14 +9,14 @@ function FilteredQuickView({ filters, titles, data, statusIndex,onRowClick }) {
 
         if (!data || data.length === 0) return;
 
-        const generated = filters.map(filter => {
+        const generated = tabs.map(filter => {
 
             const filtered = filter.status
                 ? data.filter(item => item[statusIndex] === filter.status)
                 : data;
 
             return {
-                titles: titles,
+                titles: column,
                 data: filtered
             };
 
@@ -24,7 +24,7 @@ function FilteredQuickView({ filters, titles, data, statusIndex,onRowClick }) {
 
         setValues(generated);
 
-    }, [data, filters, titles, statusIndex]);
+    }, [data, tabs, column, statusIndex]);
 
 
 
@@ -35,7 +35,7 @@ function FilteredQuickView({ filters, titles, data, statusIndex,onRowClick }) {
 
     return (
         <QuickView
-            tabs={filters.map(f => f.label)}
+            tabs={tabs.map(f => f.label)}
             values={values}
             onRowClick={onRowClick}
         />

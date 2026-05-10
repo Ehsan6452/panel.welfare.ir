@@ -94,7 +94,7 @@ function Sidebar({ isCollapsed, isMobile, onClose }) {
                 ${isExpanded ? 'gap-1 md:gap-2' : 'gap-1'}
             `}>
                 <img 
-                    src="https://my.uupload.ir/dl/n2VyZn6M"
+                    src="https://storage3.torob.com/backend-api/internet_shop/logos/5f86b986ad80.png"
                     alt={user.name} 
                     className={`
                         border-2 border-default transition-all duration-300

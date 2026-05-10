@@ -869,7 +869,7 @@ export const MOCK_SHOP=
     id : 1,
     name :  'فروشگاه سحر',
     description: 'این توضیح پیش فرص برای فروشگاه سحر',
-    image: 'https://my.uupload.ir/dl/n2VyZn6M',
+    image: 'https://storage3.torob.com/backend-api/internet_shop/logos/5f86b986ad80.png',
     rate: 4.5,
     saleCount: 125,
     productCount:20,

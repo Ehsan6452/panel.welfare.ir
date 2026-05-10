@@ -307,7 +307,7 @@ function Header({ onMenuClick, isMobile, isMobileSidebarOpen }) {
                             className="flex items-center gap-2 p-1 hover:bg-background-hover rounded-lg transition-colors"
                         >
                             <img
-                                src="https://my.uupload.ir/dl/n2VyZn6M"
+                                src="https://storage3.torob.com/backend-api/internet_shop/logos/5f86b986ad80.png"
                                 alt={user?.name}
                                 className="w-8 h-8 rounded-full border-2 border-default"
                             />

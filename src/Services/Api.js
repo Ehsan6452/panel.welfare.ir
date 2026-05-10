@@ -235,8 +235,11 @@ export const reportApi ={
 };
 
 export const orderApi = {
-    getAll:async()=>{
+    getAll: async () => {
         return Promise.resolve(MOCK_ORDERS);
+    },
+    getByFilter: async (filter) => {
+
     },
     getById: async (id) => {
         const order = MOCK_ORDERS.find(o => o[0] === id);
@@ -248,6 +251,9 @@ export const commentApi = {
     getAll:async()=>{
         return Promise.resolve(MOCK_COMMENTS);
     },
+    getByFilter: async (filter) => {
+
+    },
     getById:async(id)=>{
         const res = MOCK_COMMENTS.find(c => c.id === id);
         return Promise.resolve(res);
@@ -258,6 +264,9 @@ export const paymentApi = {
     getAll:async()=>{
         return Promise.resolve(MOCK_PAYMENTS);
     },
+    getByFilter: async (filter) => {
+
+    },
     getById: async (id) => {
         const order = MOCK_PAYMENTS.find(o => o[0] === id);
         return Promise.resolve(order);
@@ -267,6 +276,9 @@ export const paymentApi = {
 export const supportApi = {
     getAll:async()=>{
         return Promise.resolve(MOCK_SUPPORT);
+    },
+    getByFilter: async (filter) => {
+
     },
     getById: async (id) => {
         const order = MOCK_SUPPORT.find(o => o[0] === id);
